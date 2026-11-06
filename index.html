@@ -1,536 +1,807 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Lutfe Inam | VLSI & Analog IC Design Engineer</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 4px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #334155;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Lutfe Inam | Analog IC Design Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-main: #060913;
+      --bg-card: #0d1527;
+      --bg-card-hover: #131e36;
+      --border-color: #1e2d4a;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent-emerald: #00f5d4;
+      --accent-cyan: #00b4d8;
+      --badge-bg: rgba(0, 245, 212, 0.1);
+      --badge-border: rgba(0, 245, 212, 0.3);
+      --badge-text: #00f5d4;
+      --terminal-bg: #0b132b;
+      --terminal-border: #00f5d4;
+      --terminal-text-label: #00b4d8;
+      --terminal-text-val: #e2e8f0;
+      --terminal-status-ok: #00f5d4;
+      --nav-bg: rgba(6, 9, 19, 0.85);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+
+    body.light-mode {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-emerald: #0d9488;
+      --accent-cyan: #0284c7;
+      --badge-bg: rgba(13, 148, 136, 0.1);
+      --badge-border: rgba(13, 148, 136, 0.3);
+      --badge-text: #0d9488;
+      --terminal-bg: #ffffff;
+      --terminal-border: #cbd5e1;
+      --terminal-text-label: #0284c7;
+      --terminal-text-val: #0f172a;
+      --terminal-status-ok: #059669;
+      --nav-bg: rgba(248, 250, 252, 0.85);
+      --shadow-color: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent-emerald);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    .logo span {
+      color: var(--accent-emerald);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-emerald);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent-emerald);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .hero-text h2 {
+      font-size: 1.2rem;
+      color: var(--accent-emerald);
+      font-family: 'Fira Code', monospace;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      max-width: 600px;
+    }
+
+    .contact-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Custom IC Layout Box Fix */
+    .tech-card {
+      background: var(--terminal-bg);
+      border: 1px solid var(--terminal-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px var(--shadow-color);
+      font-family: 'Fira Code', monospace;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .tech-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tech-card-title {
+      color: var(--accent-emerald);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tech-card-badge {
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .tech-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .card-label {
+      color: var(--terminal-text-label);
+      min-width: 70px;
+    }
+
+    .card-val {
+      color: var(--terminal-text-val);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .card-val.status-ok {
+      color: var(--terminal-status-ok);
+      font-weight: 600;
+    }
+
+    .tech-card-footer {
+      border-top: 1px solid var(--border-color);
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    /* Container & Section Styles */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+      margin-left: 0.5rem;
+    }
+
+    .section-title span {
+      color: var(--accent-emerald);
+      font-family: 'Fira Code', monospace;
+      font-size: 1.2rem;
+    }
+
+    /* Work Experience */
+    .experience-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .exp-role {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .exp-company {
+      color: var(--accent-emerald);
+      font-weight: 500;
+    }
+
+    .exp-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .exp-bullets {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .exp-bullets li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-emerald);
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+    }
+
+    .project-category {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-bullets {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-bullets li {
+      margin-bottom: 0.4rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.2rem;
+    }
+
+    .skill-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--accent-emerald);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    /* Education */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-school {
+      color: var(--accent-emerald);
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-meta {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 6rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .card-row {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .card-val {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
+<body>
 
-    <!-- Header Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="#" class="text-base sm:text-lg font-bold font-mono tracking-tight text-brand-600 dark:text-brand-500 hover:opacity-80 transition-opacity flex items-center gap-2">
-                    <i class="fas fa-microchip"></i>
-                    <span class="truncate">Ahmed Lutfe Inam</span>
-                </a>
+  <!-- Navbar -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">&lt;<span>AhmedInam</span> /&gt;</div>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
+          <span id="themeIcon">☀️</span> <span id="themeText">Light</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-6 lg:space-x-8 text-sm font-medium">
-                    <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
-                    <a href="#experience" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Experience</a>
-                    <a href="#projects" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">VLSI Projects</a>
-                    <a href="#skills" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Skills</a>
-                    <a href="#education" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Education</a>
-                    <a href="#contact" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contact</a>
-                </nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Ahmed Lutfe Inam</h1>
+      <h2>Trainee Engineer @ Ulkasemi | Analog IC & VLSI</h2>
+      <p>Specializing in full-custom analog integrated circuit layout, multi-sensor transistor classification, and silicon physical design verification flows using Cadence Virtuoso, Spectre, and Assura.</p>
+      
+      <div class="contact-chips">
+        <div class="chip">📍 Dhaka, Bangladesh</div>
+        <div class="chip">✉️ inamlutfe@gmail.com</div>
+        <div class="chip">📞 +8801841256143</div>
+      </div>
+    </div>
 
-                <!-- Theme Toggle & Mobile Menu Button -->
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <button id="theme-toggle" aria-label="Toggle Theme" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors">
-                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
-                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg text-amber-400"></i>
-                    </button>
-
-                    <button id="mobile-menu-btn" aria-label="Toggle Mobile Menu" class="md:hidden p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors">
-                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
-                    </button>
-                </div>
-            </div>
+    <!-- Right Terminal Box -->
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <span class="tech-card-title">&lt;CUSTOM_IC_LAYOUT&gt;</span>
+        <span class="tech-card-badge">GPDK 90nm</span>
+      </div>
+      <div class="tech-card-body">
+        <div class="card-row">
+          <span class="card-label">Tech:</span>
+          <span class="card-val">CMOS / Analog / Mixed-Signal</span>
         </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-2 shadow-lg">
-            <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">About</a>
-            <a href="#experience" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Experience</a>
-            <a href="#projects" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">VLSI Projects</a>
-            <a href="#skills" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Skills</a>
-            <a href="#education" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Education</a>
-            <a href="#contact" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
+        <div class="card-row">
+          <span class="card-label">Tools:</span>
+          <span class="card-val">Virtuoso, Spectre, Assura</span>
         </div>
-    </header>
-
-    <!-- Main Content Wrapper -->
-    <main class="flex-grow pt-16">
-
-        <!-- Hero Section -->
-        <section id="about" class="py-16 sm:py-20 md:py-28 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12">
-            <div class="flex-1 space-y-6 text-center lg:text-left w-full">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/50 text-brand-700 dark:text-brand-400 text-xs font-mono font-semibold tracking-wide mx-auto lg:mx-0">
-                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-                    Trainee Engineer @ Ulkasemi (FTDS)
-                </div>
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-                    Ahmed Lutfe Inam
-                </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-brand-600 dark:text-brand-400 font-semibold font-mono">
-                    VLSI & Analog IC Design Engineer
-                </p>
-                <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-sm sm:text-base md:text-lg">
-                    Electrical & Electronic Engineering graduate specializing in Custom Analog IC design, CMOS layout verification, transistor-level classification, and Cadence Virtuoso EDA automation flows.
-                </p>
-
-                <!-- Contact Badges / Pills -->
-                <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 sm:gap-3 pt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                    <span class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
-                        <i class="fas fa-location-dot text-brand-600 dark:text-brand-400"></i> Dhaka, Bangladesh
-                    </span>
-                    <a href="mailto:inamlutfe@gmail.com" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors truncate">
-                        <i class="fas fa-envelope text-brand-600 dark:text-brand-400"></i> inamlutfe@gmail.com
-                    </a>
-                    <a href="tel:+8801841256143" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors">
-                        <i class="fas fa-phone text-brand-600 dark:text-brand-400"></i> +8801841256143
-                    </a>
-                </div>
-
-                <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-4">
-                    <a href="https://bd.linkedin.com/in/ahmedlutfeinam9" target="_blank" rel="noopener" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-brand-600 text-white text-sm sm:text-base font-medium hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/20 flex items-center gap-2">
-                        <i class="fab fa-linkedin"></i> LinkedIn Profile
-                    </a>
-                    <a href="#contact" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm sm:text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2">
-                        <i class="fas fa-paper-plane"></i> Get in Touch
-                    </a>
-                </div>
-            </div>
-
-            <!-- Fully Responsive IC Schematic Terminal Block -->
-            <div class="flex-1 w-full flex justify-center px-2 sm:px-0">
-                <div class="w-full max-w-sm sm:max-w-md rounded-2xl p-4 sm:p-6 bg-gradient-to-br from-slate-900 to-slate-950 border-2 border-brand-500/40 shadow-2xl flex flex-col justify-between font-mono text-xs sm:text-sm text-brand-400">
-                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 pb-3">
-                        <span class="text-slate-400 tracking-wider">&lt;CUSTOM_IC_LAYOUT&gt;</span>
-                        <span class="px-2 py-0.5 rounded bg-brand-950 text-brand-400 border border-brand-800 text-xs">GPDK 90nm</span>
-                    </div>
-                    <div class="space-y-3 my-4">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 sm:gap-2">
-                            <span class="text-slate-400">Tech:</span>
-                            <span class="text-slate-200 text-left sm:text-right text-xs sm:text-sm">CMOS / Analog / Mixed-Signal</span>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 sm:gap-2">
-                            <span class="text-slate-400">Tools:</span>
-                            <span class="text-slate-200 text-left sm:text-right text-xs sm:text-sm">Virtuoso, Spectre, Assura</span>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 sm:gap-2">
-                            <span class="text-slate-400">Status:</span>
-                            <span class="text-emerald-400 text-left sm:text-right text-xs sm:text-sm">DRC-Clean / LVS-Matched</span>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 sm:gap-2">
-                            <span class="text-slate-400">HDLs:</span>
-                            <span class="text-slate-200 text-left sm:text-right text-xs sm:text-sm">Verilog, SystemVerilog</span>
-                        </div>
-                    </div>
-                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-slate-500 text-xs">
-                        <i class="fas fa-microchip text-xl sm:text-2xl text-brand-500"></i>
-                        <span class="truncate">Ulkasemi / IUT-EEE</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Experience Section -->
-        <section id="experience" class="py-16 sm:py-20 bg-slate-100/60 dark:bg-slate-900/50 transition-colors">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Work Experience</h2>
-                    <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">Industry engineering roles and responsibilities.</p>
-                </div>
-
-                <div class="relative border-l-2 border-brand-500/40 ml-2 sm:ml-6 space-y-8">
-                    <!-- Ulkasemi Experience -->
-                    <div class="relative pl-5 sm:pl-8">
-                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-600 ring-4 ring-white dark:ring-slate-950"></div>
-                        <div class="bg-white dark:bg-slate-900 p-5 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2 mb-4">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Trainee Engineer</h3>
-                                    <div class="text-brand-600 dark:text-brand-400 font-medium text-xs sm:text-sm">
-                                        Ulkasemi | Department - FTDS (Foundry Technology & Design Services)
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800/40 w-fit">
-                                    10/2026 – Present | Dhaka, Bangladesh
-                                </span>
-                            </div>
-
-                            <ul class="space-y-2.5 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed list-disc list-inside sm:list-outside sm:ml-4">
-                                <li>Designed and verified a custom 88-transistor CMOS IC for a line-following robot by deriving and minimizing four motor-control Boolean equations using truth tables and Karnaugh maps (K-maps).</li>
-                                <li>Characterized nanoscale MOS devices, analyzing NMOS/PMOS I-V curves, fan-out capabilities, and propagation delay boundaries.</li>
-                                <li>Executed comprehensive transient analyses on CMOS inverters to quantify propagation delay, static leakage current, duty cycle, and operating frequency.</li>
-                                <li>Streamlined design workflows by developing and deploying custom C shell scripts for automated macro name extraction from complex design files.</li>
-                                <li>Managed netlist extraction and verification flows, exporting CDL netlists from Cadence Virtuoso schematics to execute robust testbench simulations.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- VLSI Projects Section -->
-        <section id="projects" class="py-16 sm:py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">VLSI & IC Design Projects</h2>
-                <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">Schematic, layout verification, and device characterization projects built on nanoscale PDKs.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                
-                <!-- Project 1 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">Analog IC Design</span>
-                        <i class="fas fa-sitemap text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">1:8 Analog Demultiplexer Using CMOS Transmission Gates</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">Cadence Virtuoso, GPDK 90 nm, Spectre/ADE</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Implemented hierarchical 3-stage DEMUX routing 1 input to 8 outputs via 7 reusable 1:2 DEMUX cells (28 MOSFETs).</li>
-                        <li>Achieved 24.51 Ω ON resistance, 0.591 ns switching time, &gt;1 GHz -3 dB bandwidth, and 0.287 pC charge injection.</li>
-                        <li>Verified selection of Y0–Y7 using transient simulations & fixed-code validation.</li>
-                    </ul>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">Mixed-Signal VLSI</span>
-                        <i class="fas fa-wave-square text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">CMOS Multi-Sensor Threshold Classifier (6 Transistor)</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">Cadence Virtuoso, Assura, GPDK 90 nm</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Designed transistor-level threshold classifier using weighted NMOS inputs for Vgas, Vhum, and Vtemp sensing.</li>
-                        <li>Implemented custom layout verified with Assura DRC, LVS, and completed RCX extraction.</li>
-                        <li>Achieved DRC-clean and LVS-matched layout with average transient power of 105.4 µW at 1 V.</li>
-                    </ul>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">CMOS Memory Design</span>
-                        <i class="fas fa-memory text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">6T SRAM Cell Design and Layout Verification</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">Cadence Virtuoso, Spectre/ADE, Assura, GPDK 90 nm</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Developed single-bit SRAM cell utilizing cross-coupled CMOS inverters and access transistors.</li>
-                        <li>Verified storage logic states and read behavior via transient testbenches.</li>
-                        <li>Completed custom layout, resolved DRC violations, matched LVS, and generated extracted view.</li>
-                    </ul>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">Analog IC Design</span>
-                        <i class="fas fa-sliders text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">0–90° Voltage-Controlled All-Pass Phase Shifter</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">Cadence Virtuoso, Spectre, GPDK 90 nm</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Designed voltage-controlled active all-pass filter producing tunable phase shifts over target ranges.</li>
-                        <li>Used GPDK90 NMOS as a voltage-controlled resistor, tuning W/L ratios to adjust effective resistance.</li>
-                        <li>Achieved 1.18° phase shift at Vctrl=0 V and 90.66° at Vctrl=1 V at 10 kHz with near 0 dB gain response.</li>
-                    </ul>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">Analog IC Design</span>
-                        <i class="fas fa-bolt text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">1.45 V Bandgap Reference Voltage Circuit Design</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">Cadence Virtuoso, Spectre, GPDK 90 nm</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Simulated schematic bandgap reference using PMOS current mirrors, PNP BJTs, and PTAT/CTAT compensation.</li>
-                        <li>Tuned resistor ratios and BJT multipliers to output ~1.45 V across -40°C to 125°C.</li>
-                        <li>Achieved ~14 ppm/°C temperature coefficient satisfying 10–17 ppm/°C target specs via Spectre sweeps.</li>
-                    </ul>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-3 gap-2">
-                        <span class="text-[11px] sm:text-xs font-mono px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 truncate">Device Characterization</span>
-                        <i class="fas fa-chart-line text-brand-500"></i>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">MOSFET Characterization & gm/Id Analysis</h3>
-                    <div class="text-[11px] sm:text-xs font-mono text-brand-600 dark:text-brand-400 mb-4">LTspice, TSMC 180nm BSIM3</div>
-                    <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mb-4 flex-1 list-disc list-inside">
-                        <li>Simulated NMOS/PMOS device characteristics using TSMC 180nm BSIM3 models for small-signal performance analysis.</li>
-                        <li>Performed ID-VGS, ID-VDS, gm, and gm/ID sweeps to analyze threshold voltage and inversion levels.</li>
-                        <li>Extracted VTH (NMOS ~0.35 V, PMOS ~0.42 V), gm (~4.0 mA/V), gm/ID, ro, and intrinsic gain.</li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Technical Skills Section -->
-        <section id="skills" class="py-16 sm:py-20 bg-slate-100/60 dark:bg-slate-900/50 transition-colors">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Technical Skills</h2>
-                    <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">Simulation tools, languages, and verification toolchains.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                    <!-- Simulation Tools -->
-                    <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Simulation Softwares</h3>
-                                <p class="text-xs text-slate-500">EDA & SPICE Simulators</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2.5 sm:gap-3">
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                                <i class="fas fa-microchip text-brand-500"></i> Cadence Virtuoso / Spectre
-                            </span>
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                                <i class="fas fa-wave-square text-brand-500"></i> LTspice
-                            </span>
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                                <i class="fas fa-project-diagram text-brand-500"></i> Proteus
-                            </span>
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                                <i class="fas fa-bolt text-brand-500"></i> PSPice
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- VLSI Languages -->
-                    <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">VLSI Related Languages</h3>
-                                <p class="text-xs text-slate-500">Hardware Description Languages</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2.5 sm:gap-3">
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2 font-mono">
-                                <i class="fas fa-terminal text-brand-500"></i> Verilog
-                            </span>
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2 font-mono">
-                                <i class="fas fa-terminal text-brand-500"></i> SystemVerilog
-                            </span>
-                            <span class="px-3 sm:px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 flex items-center gap-2 font-mono">
-                                <i class="fas fa-terminal text-brand-500"></i> C Shell Scripting
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="py-16 sm:py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Education</h2>
-                <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">Academic background and qualifications.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                <!-- University -->
-                <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                                2022 – 2026
-                            </span>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-1">B.Sc. Engg. in Electrical & Electronic Engineering</h3>
-                        <p class="text-brand-600 dark:text-brand-400 text-sm font-medium mb-3">Islamic University of Technology (IUT - OIC)</p>
-                        <p class="text-xs text-slate-500 mb-4"><i class="fas fa-location-dot"></i> Gazipur, Bangladesh</p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
-                        <span class="text-xs text-slate-500">Grade / Result</span>
-                        <span class="text-sm font-bold font-mono text-brand-600 dark:text-brand-400">CGPA: 3.49 / 4.00</span>
-                    </div>
-                </div>
-
-                <!-- HSC -->
-                <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
-                                <i class="fas fa-school"></i>
-                            </div>
-                            <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                                2019 – 2021
-                            </span>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-1">Higher Secondary Certificate (HSC)</h3>
-                        <p class="text-brand-600 dark:text-brand-400 text-sm font-medium mb-3">RAJUK Uttara Model College</p>
-                        <p class="text-xs text-slate-500 mb-4"><i class="fas fa-location-dot"></i> Dhaka, Bangladesh</p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
-                        <span class="text-xs text-slate-500">Grade / Result</span>
-                        <span class="text-sm font-bold font-mono text-brand-600 dark:text-brand-400">GPA: 5.00 / 5.00</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Get In Touch</h2>
-                <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">Reach out for collaborations, inquiries, or discussions on analog & digital IC design.</p>
-            </div>
-
-            <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md">
-                <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Name</label>
-                            <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors text-sm sm:text-base">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Email</label>
-                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors text-sm sm:text-base">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Message</label>
-                        <textarea id="message" rows="5" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors resize-none text-sm sm:text-base"></textarea>
-                    </div>
-                    <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                    <!-- Success Message Box -->
-                    <div id="form-message" class="hidden p-4 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-sm">
-                        Thank you! Your message has been received.
-                    </div>
-                </form>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                © <span id="current-year"></span> Ahmed Lutfe Inam. All rights reserved.
-            </p>
-            <div class="flex space-x-6 text-slate-400">
-                <a href="mailto:inamlutfe@gmail.com" class="hover:text-brand-500 transition-colors" aria-label="Email"><i class="fas fa-envelope text-lg sm:text-xl"></i></a>
-                <a href="https://linkedin.com/in/ahmed-lutfe-inam" target="_blank" rel="noopener" class="hover:text-brand-500 transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin text-lg sm:text-xl"></i></a>
-            </div>
+        <div class="card-row">
+          <span class="card-label">Status:</span>
+          <span class="card-val status-ok">DRC-Clean / LVS-Matched</span>
         </div>
-    </footer>
+        <div class="card-row">
+          <span class="card-label">HDLs:</span>
+          <span class="card-val">Verilog, SystemVerilog</span>
+        </div>
+      </div>
+      <div class="tech-card-footer">
+        <span>⚙️ Cadence Design Flow</span>
+        <span>Ulkasemi / IUT-EEE</span>
+      </div>
+    </div>
+  </section>
 
-    <!-- Interactive Scripts -->
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2 class="section-title"><span>01.</span> Work Experience</h2>
+    
+    <div class="experience-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Trainee Engineer</div>
+          <div class="exp-company">Ulkasemi — Department: FTDS (Foundry Technology & Design Services)</div>
+        </div>
+        <div class="exp-date">10/2026 – Present | Dhaka, Bangladesh</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Designed and verified a custom 88-transistor CMOS IC for a line-following robot by deriving and minimizing four motor-control Boolean equations using truth tables and Karnaugh maps (K-maps). Characterized nanoscale MOS devices, analyzing NMOS/PMOS I-V curves, fan-out capabilities, and propagation delay boundaries.</li>
+        <li>Executed comprehensive transient analyses on CMOS inverters to quantify propagation delay, static leakage current, duty cycle, and operating frequency.</li>
+        <li>Streamlined design workflows by developing and deploying custom C shell scripts for automated macro name extraction from complex design files.</li>
+        <li>Managed netlist extraction and verification flows, exporting CDL netlists from Cadence Virtuoso schematics to execute robust testbench simulations.</li>
+      </ul>
+    </div>
+  </section>
 
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2 class="section-title"><span>02.</span> VLSI Projects</h2>
+    
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">1:8 Analog Demultiplexer Using CMOS Transmission Gates</div>
+          <div class="project-category">Analog IC Design</div>
+          <ul class="project-bullets">
+            <li>Implemented a hierarchical three-stage 1:8 analog demultiplexer using CMOS transmission gates that is capable of routing one analog input to eight outputs.</li>
+            <li>Built the design from 7 reusable 1:2 DEMUX cells, totaling 28 MOSFETs.</li>
+            <li>Achieved 24.51 Ω full-path ON resistance, 0.591 ns switching time, >1 GHz -3 dB bandwidth, 55.07 pF input capacitance, and 0.287 pC charge injection.</li>
+            <li>Verified correct selection of Y0-Y7 using transient simulations and fixed-code validation.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">GPDK 90nm</span>
+          <span class="tag">Spectre/ADE</span>
+        </div>
+      </div>
 
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            lightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            darkIcon.classList.remove('hidden');
-        }
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">CMOS Multi-Sensor Threshold Classifier (6 Transistor)</div>
+          <div class="project-category">Mixed-Signal VLSI Project</div>
+          <ul class="project-bullets">
+            <li>Designed a transistor-level CMOS threshold classifier using weighted NMOS input devices for Vgas, Vhum, and Vtemp sensing.</li>
+            <li>Implemented custom layout and verified it by using Assura DRC, LVS, and completed RCX extraction.</li>
+            <li>Achieved DRC-clean and LVS-matched layout with average transient power of 105.4 µW at 1 V.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Assura DRC/LVS</span>
+          <span class="tag">GPDK 90nm</span>
+        </div>
+      </div>
 
-        themeToggleBtn.addEventListener('click', function() {
-            darkIcon.classList.toggle('hidden');
-            lightIcon.classList.toggle('hidden');
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">6T SRAM Cell Design and Layout Verification</div>
+          <div class="project-category">CMOS Memory Design</div>
+          <ul class="project-bullets">
+            <li>Developed a single-bit SRAM using cross-coupled CMOS inverters and two access transistors.</li>
+            <li>Verified storage of both logic states and read behavior using dedicated transient testbenches.</li>
+            <li>Completed custom layout, resolved DRC violations, obtained an LVS match, and generated the extracted view.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Assura</span>
+          <span class="tag">Spectre/ADE</span>
+        </div>
+      </div>
 
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        });
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">0-90° Voltage-Controlled All-Pass Phase Shifter</div>
+          <div class="project-category">Analog IC Design Project</div>
+          <ul class="project-bullets">
+            <li>Designed a voltage-controlled active all-pass filter to produce tunable phase shift over a specified range.</li>
+            <li>Used a GPDK90 NMOS as a voltage-controlled resistor and tuned its W/L ratio to control the effective resistance.</li>
+            <li>Achieved ~1.18° phase shift at Vctrl=0V and 90.66° at Vctrl=1V at 10 kHz with near 0 dB gain response.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Spectre</span>
+          <span class="tag">GPDK 90nm</span>
+        </div>
+      </div>
 
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+      <!-- Project 5 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">1.45 V Bandgap Reference Voltage Circuit Design</div>
+          <div class="project-category">Analog IC Design Project</div>
+          <ul class="project-bullets">
+            <li>Designed and simulated a schematic-level bandgap reference using PMOS current mirrors, PNP BJTs, and PTAT/CTAT compensation.</li>
+            <li>Tuned resistor ratio and BJT multiplier values to achieve ~1.45 V reference output over -40°C to 125°C.</li>
+            <li>Achieved ~14 ppm/°C temperature coefficient (target: 10-17 ppm/°C).</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Spectre</span>
+          <span class="tag">DC/Temp Sweep</span>
+        </div>
+      </div>
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+      <!-- Project 6 -->
+      <div class="project-card">
+        <div>
+          <div class="project-title">MOSFET Characterization and gm/Id Analysis</div>
+          <div class="project-category">Device Characterization Project</div>
+          <ul class="project-bullets">
+            <li>Simulated NMOS and PMOS device characteristics using TSMC 180nm BSIM3 models in LTspice.</li>
+            <li>Performed ID-VGS, ID-VDS, gm, and gm/ID sweeps to analyze threshold voltage, saturation region, and inversion levels.</li>
+            <li>Extracted VTH, gm, gm/ID, ro, and intrinsic gain at selected reference bias points.</li>
+          </ul>
+        </div>
+        <div class="project-tags">
+          <span class="tag">LTspice</span>
+          <span class="tag">TSMC 180nm</span>
+          <span class="tag">BSIM3</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2 class="section-title"><span>03.</span> Technical Skills</h2>
+    
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Simulation Softwares</h3>
+        <div class="skill-list">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Spectre</span>
+          <span class="tag">LTspice</span>
+          <span class="tag">PSpice</span>
+          <span class="tag">Proteus</span>
+        </div>
+      </div>
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const messageBox = document.getElementById('form-message');
-            messageBox.classList.remove('hidden');
-            document.getElementById('contact-form').reset();
+      <div class="skill-card">
+        <h3>VLSI Languages</h3>
+        <div class="skill-list">
+          <span class="tag">Verilog</span>
+          <span class="tag">SystemVerilog</span>
+        </div>
+      </div>
 
-            setTimeout(() => {
-                messageBox.classList.add('hidden');
-            }, 5000);
-        }
-    </script>
+      <div class="skill-card">
+        <h3>Physical Verification</h3>
+        <div class="skill-list">
+          <span class="tag">Assura DRC</span>
+          <span class="tag">Assura LVS</span>
+          <span class="tag">RCX Extraction</span>
+          <span class="tag">CDL Export</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h3>Scripting & Automation</h3>
+        <div class="skill-list">
+          <span class="tag">C Shell (csh)</span>
+          <span class="tag">K-Map Minimization</span>
+          <span class="tag">Boolean Optimization</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education">
+    <h2 class="section-title"><span>04.</span> Education</h2>
+    
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">B.Sc. Engg. in Electrical & Electronic Engineering</div>
+        <div class="edu-school">Islamic University of Technology (IUT - OIC)</div>
+        <div class="edu-meta">2022 – 2026 | Gazipur, Bangladesh<br />CGPA: 3.49 / 4.00</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+        <div class="edu-school">RAJUK Uttara Model College</div>
+        <div class="edu-meta">2019 – 2021 | Dhaka, Bangladesh<br />GPA: 5.00 / 5.00</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Ahmed Lutfe Inam. Hosted on GitHub Pages.</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      
+      body.classList.toggle('light-mode');
+      
+      if (body.classList.contains('light-mode')) {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Light';
+      }
+    }
+  </script>
 </body>
 </html>
