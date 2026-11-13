@@ -1455,7 +1455,7 @@
 
       // Projects
       function drawArt(card, st) {
-        var tl = gsap.timeline({ scrollTrigger: st });
+        var tl = gsap.timeline(st ? { scrollTrigger: st } : { paused: true });
         tl.to($$('.art path', card), { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', stagger: 0.05 })
           .to($$('.art circle', card), { opacity: 1, duration: 0.5, stagger: 0.04 }, '-=0.9');
         return tl;
@@ -1470,6 +1470,19 @@
         var hCount = $('#hCount'), hBar = $('#hBar');
         function dist() { return Math.max(0, track.offsetWidth - window.innerWidth); }
 
+        // Art animations: driven by each card's real on-screen position, so cards that are
+        // already visible when the section pins (the first ones) still animate.
+        var artTl = cards.map(function (card) { return drawArt(card, null); });
+        var artShown = cards.map(function () { return false; });
+        function checkArt() {
+          cards.forEach(function (card, i) {
+            var left = card.getBoundingClientRect().left;
+            if (left < window.innerWidth * 0.85 && !artShown[i]) { artShown[i] = true; artTl[i].play(); }
+            else if (left > window.innerWidth * 0.97 && artShown[i]) { artShown[i] = false; artTl[i].reverse(); }
+          });
+        }
+        ScrollTrigger.create({ trigger: pin, start: 'top 75%', onEnter: checkArt, onEnterBack: checkArt });
+
         var hTween = gsap.to(track, {
           x: function () { return -dist(); },
           ease: 'none',
@@ -1481,12 +1494,9 @@
               var i = Math.min(cards.length, Math.round(self.progress * (cards.length - 1)) + 1);
               hCount.textContent = String(i).padStart(2, '0');
               hBar.style.transform = 'scaleX(' + self.progress + ')';
+              checkArt();
             }
           }
-        });
-
-        cards.forEach(function (card) {
-          drawArt(card, { trigger: card, containerAnimation: hTween, start: 'left 82%', end: 'right left', toggleActions: 'play none none reverse' });
         });
 
         return function () { root.classList.remove('hscroll'); };
