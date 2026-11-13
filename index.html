@@ -475,8 +475,13 @@
     .card-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
     .card-metric { font-family: var(--mono); font-size: .78rem; color: var(--muted); padding: 7px 12px; border: 1px solid var(--line); border-radius: 10px; }
     .card-metric strong { color: var(--accent-ink); font-weight: 700; }
-    .more { font-family: var(--mono); font-size: .78rem; font-weight: 600; display: inline-flex; gap: 8px; align-items: center; transition: transform .35s var(--ease), color .3s; }
-    .card:hover .more { color: var(--accent-ink); transform: translateX(5px); }
+    .more {
+      font-family: var(--mono); font-size: .78rem; font-weight: 600; letter-spacing: .03em;
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line2); color: var(--text);
+      transition: background .3s ease, color .3s ease, border-color .3s ease;
+    }
+    .more:hover, .more:focus-visible { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
     @media (max-height: 780px) {
       .hscroll .card { padding: 22px; }
@@ -770,7 +775,7 @@
           </div>
 
           <!-- 01 -->
-          <a class="card" href="projects/analog-demux.html" data-cursor="Open" data-num="01">
+          <article class="card" data-num="01">
             <div class="card-body">
               <p class="eyebrow">01 · Analog IC Design</p>
               <div class="art" aria-hidden="true">
@@ -798,13 +803,13 @@
               <p class="card-sum">Seven 1:2 transmission-gate cells in a three-stage binary tree, verified for routing, Ron, Cin, ton, bandwidth, charge injection and power.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>24.51 Ω</strong> worst-case Ron, full 3-stage path</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/1%20to%208%20Analog%20Demultiplexer" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 02 -->
-          <a class="card" href="projects/sram-6t.html" data-cursor="Open" data-num="02">
+          <article class="card" data-num="02">
             <div class="card-body">
               <p class="eyebrow">02 · CMOS Memory Design</p>
               <div class="art" aria-hidden="true">
@@ -826,13 +831,13 @@
               <p class="card-sum">Single-bit 6T SRAM cell from schematic and write/hold/read tests to a DRC-clean, LVS-matched custom layout with an extracted RC netlist.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>0 errors</strong> DRC</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/6T%20SRAM%20Cell%20Schematic%20DRC%20LVS%20PEX" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 03 -->
-          <a class="card" href="projects/threshold-classifier.html" data-cursor="Open" data-num="03">
+          <article class="card" data-num="03">
             <div class="card-body">
               <p class="eyebrow">03 · Mixed-Signal VLSI</p>
               <div class="art" aria-hidden="true">
@@ -852,13 +857,13 @@
               <p class="card-sum">Six-transistor weighted-threshold alarm circuit, carried through DC/transient simulation, layout, DRC, LVS and RCX.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>105.4 µW</strong> average transient power</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/Low-Power_CMOS_Multi-Sensor_Threshold_Classifier_LVS_DRC_RCX" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 04 -->
-          <a class="card" href="projects/mosfet-characterization.html" data-cursor="Open" data-num="04">
+          <article class="card" data-num="04">
             <div class="card-body">
               <p class="eyebrow">04 · Device Characterization</p>
               <div class="art" aria-hidden="true">
@@ -873,13 +878,13 @@
               <p class="card-sum">NMOS and PMOS DC characterization on TSMC 180 nm BSIM3 models in LTspice: Id–Vgs, Id–Vds, gm, gm/Id and small-signal parameters.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>≈ 4.0 mA/V</strong> NMOS gm</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/MOSFET_Characterization_Suite" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 05 -->
-          <a class="card" href="projects/phase-shifter.html" data-cursor="Open" data-num="05">
+          <article class="card" data-num="05">
             <div class="card-body">
               <p class="eyebrow">05 · Analog Signal Processing</p>
               <div class="art" aria-hidden="true">
@@ -893,13 +898,13 @@
               <p class="card-sum">First-order active all-pass stage whose phase is set by an NMOS acting as a voltage-controlled resistor.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>1.18° → 90.66°</strong> phase at 10 kHz</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/All_Pass_Phase_Shifter_Circuit" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 06 -->
-          <a class="card" href="projects/bandgap-reference.html" data-cursor="Open" data-num="06">
+          <article class="card" data-num="06">
             <div class="card-body">
               <p class="eyebrow">06 · Analog IC Design</p>
               <div class="art" aria-hidden="true">
@@ -914,13 +919,13 @@
               <p class="card-sum">PTAT/CTAT bandgap core tuned for minimum drift, followed by a ×1.24 gain stage to reach the 1.4–1.5 V target.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>≈ 14.2 ppm/°C</strong> temperature coefficient</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/Bandgap_Reference_Voltage_Circuit" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
 
           <!-- 07 -->
-          <a class="card" href="projects/cmos-inverter-layout.html" data-cursor="Open" data-num="07">
+          <article class="card" data-num="07">
             <div class="card-body">
               <p class="eyebrow">07 · Layout and Verification</p>
               <div class="art" aria-hidden="true">
@@ -939,10 +944,10 @@
               <p class="card-sum">Schematic-to-layout flow for a 1.0 V inverter in GPDK 90 nm, closed with zero DRC errors and a clean LVS match.</p>
               <div class="card-footer">
                 <span class="card-metric"><strong>0 errors</strong> DRC</span>
-                <span class="more">Read the case study →</span>
+                <a class="more" href="https://github.com/ahmedlutfeinam999/VLSI-Projects/tree/main/Analog/CMOS_Inverter_Layout_Project_LVS_and_DRC" target="_blank" rel="noopener">View on GitHub ↗</a>
               </div>
             </div>
-          </a>
+          </article>
         </div>
 
         <div class="h-hud" aria-hidden="true">
