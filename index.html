@@ -30,11 +30,6 @@
       } catch (e) {
         root.setAttribute('data-theme', 'dark');
       }
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        root.classList.add('loading');
-        // Failsafe: never leave the visitor stuck behind the preloader
-        setTimeout(function () { root.classList.remove('loading'); }, 9000);
-      }
     })();
   </script>
 
@@ -105,7 +100,7 @@
     html.lenis, html.lenis body { height: auto; }
     .lenis.lenis-smooth { scroll-behavior: auto !important; }
     .lenis.lenis-stopped { overflow: hidden; }
-    html.loading, html.menu-open { overflow: hidden; }
+    html.menu-open { overflow: hidden; }
 
     body {
       font-family: var(--sans);
@@ -172,23 +167,6 @@
     }
     .cursor.view span { opacity: 1; }
     .has-cursor, .has-cursor a, .has-cursor button { cursor: none; }
-
-    /* ==========================================================================
-       3. PRELOADER
-       ========================================================================== */
-    .preloader {
-      display: none;
-      position: fixed; inset: 0; z-index: 3000;
-      background: #0A0A0B; color: #EFEBE3;
-      flex-direction: column; justify-content: space-between;
-      padding: 28px var(--gutter);
-    }
-    .loading .preloader { display: flex; }
-    .pre-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: #9A958B; }
-    .pre-count { font-family: var(--serif); font-size: clamp(7rem, 26vw, 24rem); line-height: .8; letter-spacing: -.04em; display: flex; align-items: flex-end; gap: .1em; }
-    .pre-count small { font-family: var(--mono); font-size: clamp(.9rem, 1.6vw, 1.4rem); letter-spacing: .1em; color: #FF6B3D; padding-bottom: 1.2em; }
-    .pre-bar { height: 2px; background: rgba(239, 235, 227, .14); margin-top: 24px; }
-    .pre-bar i { display: block; height: 100%; background: #FF6B3D; transform: scaleX(0); transform-origin: left; }
 
     /* ==========================================================================
        4. HEADER & NAV
@@ -355,8 +333,8 @@
 
     .name {
       font-family: var(--serif); font-weight: 400;
-      font-size: clamp(4.2rem, 13.4vw, 12.8rem);
-      line-height: .9; letter-spacing: -.035em; margin: auto 0;
+      font-size: clamp(3rem, 8.2vw, 7.6rem);
+      line-height: .92; letter-spacing: -.03em; margin: auto 0;
     }
     .name .line { display: block; overflow: hidden; padding: .06em .1em .14em 0; margin: -.06em 0 -.14em; }
     .name .line-in { display: block; will-change: transform; }
@@ -596,7 +574,7 @@
       .edu-card { grid-template-columns: 1fr; min-height: 0; align-items: start; position: relative; top: auto; }
       .grade { text-align: left; }
       .g-v { justify-content: flex-start; }
-      .name .l2 .line-in { padding-left: 6vw; }
+      .name .l2 .line-in { padding-left: 5vw; }
       .hero-meta { flex-direction: column; align-items: flex-start; }
       .scroll-cue { display: none; }
     }
@@ -604,6 +582,7 @@
     @media (max-width: 820px) {
       .nav { display: none; }
       .menu-btn { display: inline-flex; }
+      .hero-top { display: none; }
     }
 
     @media (max-width: 560px) {
@@ -629,15 +608,6 @@
   <div class="grain" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><i id="progress"></i></div>
   <div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
-
-  <!-- Preloader -->
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="pre-top"><span>Ahmed Lutfe Inam</span><span>Analog IC Design</span></div>
-    <div>
-      <div class="pre-count"><span id="preNum">000</span><small>%</small></div>
-      <div class="pre-bar"><i id="preBar"></i></div>
-    </div>
-  </div>
 
   <a class="skip" href="#main">Skip to content</a>
 
@@ -1199,7 +1169,6 @@
 
       var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
       if (!hasGsap) {
-        root.classList.remove('loading');
         initCanvas(null);
         return;
       }
@@ -1214,7 +1183,6 @@
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
         gsap.ticker.lagSmoothing(0);
-        if (root.classList.contains('loading')) lenis.stop();
       }
 
       var speed = 0, lastY = window.scrollY;
@@ -1309,7 +1277,6 @@
       initCanvas(function () { return speed; });
 
       if (reduce) {
-        root.classList.remove('loading');
         return; // static, fully visible page
       }
 
@@ -1371,31 +1338,11 @@
         return tl;
       }
 
-      var pre = $('#preloader');
-      if (root.classList.contains('loading') && pre) {
-        var preNum = $('#preNum'), preBar = $('#preBar');
-        var counter = { v: 0 };
-        gsap.set(pre, { clipPath: 'inset(0% 0% 0% 0%)' });
-        var ptl = gsap.timeline();
-        ptl.to(counter, {
-          v: 100, duration: 1.9, ease: 'power2.inOut',
-          onUpdate: function () {
-            preNum.textContent = String(Math.round(counter.v)).padStart(3, '0');
-            preBar.style.transform = 'scaleX(' + (counter.v / 100) + ')';
-          }
-        })
-        .to('.pre-top, .pre-count', { opacity: 0, y: -24, duration: 0.45, ease: 'power2.in' }, '+=0.15')
-        .to(pre, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'power4.inOut' }, '-=0.15')
-        .add(function () { heroIn(); }, '-=0.55')
-        .add(function () {
-          root.classList.remove('loading');
-          if (lenis) lenis.start();
-          ScrollTrigger.refresh();
-        });
-      } else {
-        root.classList.remove('loading');
-        heroIn();
-      }
+      // Play the hero intro right away (once fonts are ready, with a short fallback)
+      var introPlayed = false;
+      function playIntro() { if (introPlayed) return; introPlayed = true; heroIn(); }
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(playIntro); }
+      setTimeout(playIntro, 700);
 
       /* ---------------------------------------------------------------
          CURSOR + MAGNETIC BUTTONS
